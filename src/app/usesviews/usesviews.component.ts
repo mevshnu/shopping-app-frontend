@@ -9,7 +9,18 @@ import { ApiService } from '../api.service';
 export class UsesviewsComponent {
   productname=""
   searchData:any=[]
-  constructor(private api:ApiService){}
+  products: any = []
+  constructor(private api:ApiService){
+    api.fview().subscribe(
+      (response) => {
+        this.products = response
+        console.log(response)
+      }
+    )
+  }
+
+
+  
   readsearch=()=>
   {
    let data={"productname":this.productname}
