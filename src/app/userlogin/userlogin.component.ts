@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-userlogin',
@@ -7,13 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./userlogin.component.css']
 })
 export class UserloginComponent {
-  username=""
+  email=""
   password=""
-  constructor(private route:Router){}
+  constructor(private route:Router,private api:ApiService){}
   readlogin=()=>
   {
-    let data3:any={"username":this.username,"password":this.password}
-  console.log(data3)
+    let data3:any={"username":this.email,"password":this.password}
+  
+  
+  
+  this.api.loginUser(data3).subscribe(
+    (response :any)=>
+    {
+      this.email=""
+      this.password=""
+      if (response.status == "success") {
+        let userId=response.userId
+        this.route.navigate(["/userview"])
+        console.log(userId)
+        localStorage.setItem("userinfo",userId)
+      } else {
+        alert(response.message)
+      }
+    }
+  )
   }
-
 }
