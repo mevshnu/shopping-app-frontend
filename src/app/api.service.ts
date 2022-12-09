@@ -8,7 +8,7 @@ export class ApiService {
 
   constructor(private http:HttpClient) { }
   loginUser = (data:any)=>{
-    return this.http.post("http://localhost:8080/userLogin", data)
+    return this.http.post("http://localhost:8080/userLogin",data)
   }
   fview=()=>
   {
@@ -26,5 +26,10 @@ export class ApiService {
   {
     return this.http.post("http://localhost:8080/search",datatosearch)
   }
+  getprofiledetails=(dat:any)=>
+  {
+    return this.http.post("http://localhost:8080/getUserById",dat)
+  }
+  
   
 }
